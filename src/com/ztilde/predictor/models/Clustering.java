@@ -4,10 +4,8 @@ import android.content.Context;
 import com.orm.SugarRecord;
 
 public class Clustering extends SugarRecord<Clustering> {
-	public int strength;
-	public String wifiName;
-	public int measure;
-	public Classifier spot;
+	public String name;
+	public int clusters;
 	
 	public Clustering(Context ctx) {
 		super(ctx);
