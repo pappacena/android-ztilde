@@ -9,6 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.orm.StringUtil;
 
 public class ZTilde {
@@ -19,6 +21,10 @@ public class ZTilde {
 
 	public ZTilde(String apiKey) {
 		this.apiKey = apiKey;
+	}
+	
+	public ZTilde() {
+		this.apiKey = "";
 	}
 
 	/**
@@ -47,15 +53,16 @@ public class ZTilde {
 		return json.getString("value");
 	}
 
-	public static ZTilde fromJSON(JSONObject json, String apiKey) throws JSONException {
-		ZTilde z = new ZTilde(apiKey);
-		z.name = json.getString("name");
-		return z;
+	public void hydrate(JSONObject json, String apiKey) throws JSONException {
+		this.name = json.getString("name");
+		this.apiKey = apiKey;
 	}
 
 	public static ZTilde[] getList(String apiKey) throws ClientProtocolException, IOException,
 			UnauthorizedException, IllegalStateException, JSONException {
+		HttpClient.setApiKey(apiKey);
 		HttpResponse resp = HttpClient.get("/api/model/");
+		
 		JSONObject objects = HttpClient.toJSON(resp);
 
 		JSONArray classifiers = objects.getJSONArray("classifiers");
@@ -66,16 +73,22 @@ public class ZTilde {
 		
 		Classifier zr;
 		for (int i = 0; i < classifiers.length(); i++) {
-			zr = Classifier.fromJSON(classifiers.getJSONObject(i), apiKey);
+			zr = new Classifier();
+			zr.hydrate(classifiers.getJSONObject(i), apiKey);
 			ret[pointer++] = zr;
 		}
 		
 		Clustering zg;
 		for (int i = 0; i < clustering.length(); i++) {
-			zr = Classifier.fromJSON(clustering.getJSONObject(i), apiKey);
-			ret[pointer++] = zr;
+			zg = new Clustering();
+			zg.hydrate(clustering.getJSONObject(i), apiKey);
+			ret[pointer++] = zg;
 		}
 		
 		return ret;
+	}
+	
+	public String getName() {
+		return this.name;
 	}
 }

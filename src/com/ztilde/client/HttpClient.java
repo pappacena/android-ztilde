@@ -20,10 +20,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Base64;
+import android.util.Log;
 
 public class HttpClient extends DefaultHttpClient {
 	private static String apiKey = "";
-	private static String baseUrl = "http://192.168.8.41:8000";
+	private static String baseUrl = "http://192.168.0.102:8000";
 
 	public static void setApiKey(String apiKey) {
 		HttpClient.apiKey = apiKey;
@@ -47,6 +48,7 @@ public class HttpClient extends DefaultHttpClient {
 		get.setHeader("X-API-KEY", HttpClient.apiKey);
 
 		HttpResponse response = httpclient.execute(get);
+		
 		if (response.getStatusLine().getStatusCode() == 401) {
 			throw new UnauthorizedException("401 - Unauthorized: " + url);
 		}

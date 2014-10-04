@@ -10,8 +10,8 @@ public class Classifier extends ZTilde {
 		super(apiKey);
 	}
 
-	public static Classifier fromJSON(JSONObject json, String apiKey) throws JSONException {
-		Classifier z = (Classifier) ZTilde.fromJSON(json, apiKey);
-		return z;
+	public Classifier() {
+		super("");
 	}
+
 }

@@ -62,4 +62,8 @@ public class CredentialManager {
 	public boolean isLoggedIn() {
 		return this.apiKey != "";
 	}
+	
+	public String getApiKey() {
+		return this.apiKey;
+	}
 }

@@ -3,8 +3,11 @@
 
     <string name="app_name">ZTilde</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-
+    
     <string name="preference_file_key">ztilde_prefs</string>
     <string name="saved_api_key">api_key</string>
+    
+    <string name="open_menu">Open menu</string>
+    <string name="close_menu">Close menu</string>
+
 </resources>

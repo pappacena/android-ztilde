@@ -12,10 +12,13 @@ public class Clustering extends ZTilde {
 		this.clusters = clusters;
 	}
 
-	public static Clustering fromJSON(JSONObject json, String apiKey) throws JSONException {
-		Clustering z = (Clustering) ZTilde.fromJSON(json, apiKey);
-		z.clusters = json.getInt("clusters");
-		return z;
+	public Clustering() {
+		super("");
 	}
-	
+
+	public void hydrate(JSONObject json, String apiKey) throws JSONException {
+		super.hydrate(json, apiKey);
+		this.clusters = json.getInt("clusters");
+	}
+
 }
